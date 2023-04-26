@@ -77,3 +77,34 @@ You are permitted to use any tool to do the intermediate steps; your final datab
     * Create a new table, `trainer`, which consists of `first_name` and `last_name` (both string types not longer than 80 characters). 
     * Trainers can have multiple `favorite_pokemon_types`, and have Pokemon teams that can have up to ten Pokemon each on them. Make sure you stay in Third Normal Form, and add several trainers to the database: myself, your TA, yourself, and a friend or colleague from the class. You may assign to us any Pokemon you think would be on our team, but beware! Giving me a Cougarite could hurt your grade! (Just kidding.)
 
+
+notes for completion:
+
+primary key: pokedex #
+1NF: contain data that is functionally dependent
+1NF: only contains single elements, and usually isnt repeated
+start with the pokemon and determine relations from there
+pokemon is at the center, type and name are relations
+
+                abilities many:many relationship <------pokemon ---> type 1:2
+                                                    generation----> name 1:1                      relationship
+                                                    attack
+                                                    defense
+                                                    sp.def
+                                                    sp.atk
+                                                    etc,etc
+                                                    pokedex 
+
+replacing single quotes with double quotes for json function usage to break up arrays:
+UPDATE table SET abilities = REPLACE(name, "'", '"');
+then use json_each to break up the each array element into it's own row
+select abilities trim(value) as split_value from imported_pokemon, json_each('["' || replace(abilities, ',', '","') || '"]"')
+
+
+use trim function to clean up
+Lucid Chart for ERD
+
+never have a many to many relationship in normalized table
+erd always points towards foreign key (playlist id, track id, etc)
+
+
